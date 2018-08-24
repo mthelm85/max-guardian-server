@@ -1,15 +1,10 @@
 const express = require('express')
-
 const app = express()
+const server = require('http').createServer(app)
+const io = require('socket.io')(server)
 const port = process.env.PORT || 3000
 
-app.get('/', (req, res) => {
-  res.send('The app is running...')
-})
+require('./socket.js')(io)
 
-app.post('/alert', (req, res) => {
-  res.json({ Alert: 'Max is too close' })
-})
-
-app.listen(port)
+server.listen(port)
 console.log(`Server running on port: ${port}`)
